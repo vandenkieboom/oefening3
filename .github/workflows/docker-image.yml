@@ -13,6 +13,14 @@ jobs:
       - name: checkout
         uses: actions/checkout@master
       - name: update diagram
-        uses: githubocto/repo-visualizer@main
+        id: make_diagram
+        uses: githubocto/repo-visualizer@0.7.1
         with:
+          output_file: "output-diagram.svg"
+          artifact_name: "my-diagram"
+      - name: Get artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: "my-diagram"
+          path: "downloads"
           should_push: false
