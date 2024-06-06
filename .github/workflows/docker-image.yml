@@ -1,0 +1,27 @@
+name: oefening 3
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@master
+      - name: update diagram
+        id: make_diagram
+        uses: githubocto/repo-visualizer@0.7.1
+        with:
+          output_file: "output-diagram.svg"
+          artifact_name: "my-diagram"
+      - name: get artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: "my-diagram"
+          path: "downloads"
+          should_push: false
